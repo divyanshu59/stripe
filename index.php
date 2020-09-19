@@ -1,22 +1,35 @@
 <?php
 require_once('vendor/autoload.php');
-$amount = $_GET['amount'];
-$payment_method_id = $_GET['payment_method_id'];
-$email = $_GET['email'];
 
+if (isset($_POST['amount'])) {
+    $amount = $_POST['amount'];
+}
 
-$stripe = new \Stripe\StripeClient(
-    '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'
-);
-$paymentIntent = $stripe->paymentIntents->create([
-    'amount' => $amount,
-    'currency' => 'usd',
-    'payment_method_types' => ['card'],
-    'payment_method' => $payment_method_id,
-    'receipt_email' => $email,
-    'confirm' => true
-]);
+if (isset($_POST['stripeToken'])) {
+    $token = $_POST['stripeToken'];
+}
 
-echo json_encode($paymentIntent);
+if (isset($_POST['email'])) {
+    $email = $_POST['email'];
+}
+if (isset($_POST['description'])) {
+    $description = $_POST['description'];
+}
 
-//header('Location:' . $customer['charges']['url']);
+$testKey = "sk_test_qZpYd0NW2ekyE6W9PtKVrYDB00es75TvLu";
+$liveKey = "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";
+if ($amount != null && $token != null && $email != null && $description != null) {
+    $stripe = new \Stripe\StripeClient(
+        $testKey
+    );
+
+    $charge = $stripe->charges->create([
+        'amount' => $amount,
+        'currency' => 'usd',
+        'source' => $token,
+        'receipt_email' => $email,
+        'description' => $description,
+    ]);
+
+    echo json_encode($charge);
+}
