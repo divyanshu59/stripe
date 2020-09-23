@@ -1,25 +1,25 @@
 <?php
 require_once('vendor/autoload.php');
 
-if (isset($_POST['amount'])) {
-    $amount = $_POST['amount'];
+if (isset($_GET['amount'])) {
+    $amount = $_GET['amount'];
 } else {
     $amount = 0;
 }
 
-if (isset($_POST['stripeToken'])) {
-    $token = $_POST['stripeToken'];
+if (isset($_GET['stripeToken'])) {
+    $token = $_GET['stripeToken'];
 } else {
     $token = "";
 }
 
-if (isset($_POST['email'])) {
-    $email = $_POST['email'];
+if (isset($_GET['email'])) {
+    $email = $_GET['email'];
 } else {
     $email = "";
 }
-if (isset($_POST['description'])) {
-    $description = $_POST['description'];
+if (isset($_GET['description'])) {
+    $description = $_GET['description'];
 } else {
     $description = "";
 }
